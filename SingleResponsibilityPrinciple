@@ -1,0 +1,79 @@
+# ANTES DE SRP
+
+<?php
+
+class UserService {
+    private $dbConnection;
+
+    public function __construct($dbConnection) {
+        $this->dbConnection = $dbConnection;
+    }
+
+    public function createUser($username, $email) {
+        // Lógica de negocio
+        if (strpos($email, '@') === false) {
+            throw new Exception("Email inválido.");
+        }
+
+        // Guardar en la base de datos
+        $query = "INSERT INTO users (username, email) VALUES (:username, :email)";
+        $statement = $this->dbConnection->prepare($query);
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+
+        echo "Usuario $username creado y guardado en la base de datos.\n";
+    }
+}
+
+# DESPUES DE SRP
+
+<?php
+
+class UserRepository {
+    private $dbConnection;
+
+    public function __construct($dbConnection) {
+        $this->dbConnection = $dbConnection;
+    }
+
+    public function saveUser($username, $email) {
+        $query = "INSERT INTO users (username, email) VALUES (:username, :email)";
+        $statement = $this->dbConnection->prepare($query);
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+
+        echo "Usuario $username guardado en la base de datos.\n";
+    }
+}
+
+class UserService {
+    private $userRepository;
+
+    public function __construct($userRepository) {
+        $this->userRepository = $userRepository;
+    }
+
+    public function createUser($username, $email) {
+        // Lógica de negocio
+        if (strpos($email, '@') === false) {
+            throw new Exception("Email inválido.");
+        }
+
+        // Delegar el guardado en la base de datos al repositorio
+        $this->userRepository->saveUser($username, $email);
+        echo "Usuario $username creado con éxito.\n";
+    }
+}
+
+
+
+# En el código original, tenemos una sola clase, UserService, que realiza dos tareas diferentes:
+# -Lógica de negocio: Valida que el email del usuario sea correcto.
+# -Interacción con la base de datos: Ejecuta directamente la consulta para guardar al usuario en la base de datos.
+
+
+# En el segundo código, dividimos las responsabilidades en dos clases independientes:
+# - UserService: Ahora solo maneja la lógica de negocio (validar el email).
+# - UserRepository: Esta clase se encarga exclusivamente de la interacción con la base de datos (guardar al usuario).
