@@ -18,6 +18,6 @@ D - Dependency Inversion Principle (DIP): Los módulos de alto nivel no deben de
 
 - Objetivo del Repositorio -
 
-El objetivo de este repositorio es proporcionar ejemplos prácticos y fáciles de entender que demuestren cómo aplicar cada principio SOLID en diferentes contextos. Cada carpeta contiene ejemplos de código con explicaciones, en muchos casos mostrando el antes y el después de aplicar el principio, para ilustrar la mejora en diseño y calidad de código. También se incluyen pruebas unitarias para validar los ejemplos y reforzar la importancia de un código bien diseñado y comprobable.
+El objetivo de este repositorio es proporcionar ejemplos prácticos que demuestren cómo aplicar cada principio SOLID. Cada carpeta contiene ejemplos de código con explicaciones, en muchos casos mostrando el antes y el después de aplicar el principio, para ilustrar la mejora en diseño y calidad de código.
 
 Este repositorio está diseñado como una herramienta de aprendizaje para desarrolladores que deseen profundizar en los principios de diseño SOLID y mejorar su habilidad para escribir código más limpio, modular y mantenible.
